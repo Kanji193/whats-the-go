@@ -18,7 +18,7 @@
  * bump it whenever the shell's file list changes.
  */
 
-const CACHE_VERSION = 'wtg-shell-v1';
+const CACHE_VERSION = 'wtg-shell-v2';
 
 const SHELL_URLS = [
   'index.html',
@@ -38,6 +38,7 @@ const SHELL_URLS = [
   'js/ui/filters.js',
   'js/ui/feed.js',
   'js/ui/distance.js',
+  'js/ui/theme.js',
   'js/tone/summary-modes.js',
   'adapters/main-roads-wa-adapter.js',
   'adapters/emergency-wa-adapter.js',

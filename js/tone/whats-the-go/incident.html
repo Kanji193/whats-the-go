@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Incident — What's The Go?</title>
+<meta name="description" content="Incident details from What's The Go? — live Perth traffic, emergency, power and weather data." />
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#1B2430" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="What's The Go?" />
+
+<!-- Social share preview (generic — this page has no server render, so it can't
+     show this specific incident's title/location in the preview card, only
+     the site's own. See adapters/README.md's PWA/OG notes for why. ) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Incident — What's The Go?" />
+<meta property="og:description" content="Live Perth map of traffic, emergency, power and weather incidents — what's going on around you right now." />
+<meta property="og:image" content="icons/icon-512.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Incident — What's The Go?" />
+<meta name="twitter:image" content="icons/icon-512.png" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css" />
+
+<style>
+  body { background: var(--color-bg); }
+  .incident-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100dvh;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    text-decoration: none;
+    margin-bottom: 16px;
+  }
+  .back-link:hover { color: var(--color-ink); }
+  .page-brand {
+    font-family: var(--font-condensed);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 20px;
+    color: var(--color-ink);
+  }
+  #mini-map {
+    height: 220px;
+    border-radius: var(--radius-md);
+    margin-top: 16px;
+    border: 1px solid var(--color-border);
+  }
+  .page-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+  }
+  .page-card .incident-card { max-width: none; }
+  .not-found {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-ink-muted);
+  }
+  .share-row {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .share-row button {
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .share-row button:hover { background: var(--color-surface-sunken); }
+</style>
+</head>
+<body>
+  <div class="incident-page">
+    <a class="back-link" href="index.html">← Back to map</a>
+    <p class="page-brand">What's The Go?</p>
+    <div id="content" class="page-card">Loading…</div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="js/incident-page.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>

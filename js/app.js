@@ -1,5 +1,5 @@
 import { incidentRepository } from './data/incident-repository.js';
-import { initMap, PERTH_CENTER } from './map/map-init.js';
+import { initMap, PERTH_CENTER, setMapTheme } from './map/map-init.js';
 import { buildMarkerLayer } from './map/markers.js';
 import { requestUserLocation, showUserLocationMarker } from './map/geolocation.js';
 import { createFilterState, matchesFilters, renderFilterChips } from './ui/filters.js';
@@ -7,6 +7,7 @@ import { sortByRelevance, renderFeed, setActiveRow } from './ui/feed.js';
 import { distanceKm, formatDistance } from './ui/distance.js';
 import { diffAndRecordVisit } from './ui/last-visit.js';
 import { buildSituationSummary } from './ui/summary.js';
+import { initThemeToggle } from './ui/theme.js';
 
 const state = {
   allIncidents: [],
@@ -31,6 +32,7 @@ const els = {
   locateBtn: document.getElementById('locateBtn'),
   sidebar: document.getElementById('sidebar'),
   sheetHandle: document.getElementById('sheetHandle'),
+  themeToggle: document.getElementById('themeToggle'),
 };
 
 function shareUrlFor(incident) {
@@ -39,6 +41,8 @@ function shareUrlFor(incident) {
 
 async function main() {
   const map = initMap('map');
+
+  initThemeToggle(els.themeToggle, (theme) => setMapTheme(map, theme));
 
   state.allIncidents = await incidentRepository.getAll();
   state.newIncidentIds = diffAndRecordVisit(state.allIncidents);

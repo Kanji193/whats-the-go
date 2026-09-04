@@ -6,6 +6,17 @@
 <title>Incident — What's The Go?</title>
 <meta name="description" content="Incident details from What's The Go? — live Perth traffic, emergency, power and weather data." />
 
+<!-- Theme: applied before first paint — see index.html for details. -->
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('wtg-theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+
 <!-- PWA -->
 <link rel="manifest" href="manifest.json" />
 <meta name="theme-color" content="#1B2430" />
@@ -34,6 +45,7 @@
 <style>
   body { background: var(--color-bg); }
   .incident-page {
+    position: relative;
     max-width: 640px;
     margin: 0 auto;
     padding: 20px;
@@ -94,6 +106,10 @@
 </head>
 <body>
   <div class="incident-page">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+      <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
     <a class="back-link" href="index.html">← Back to map</a>
     <p class="page-brand">What's The Go?</p>
     <div id="content" class="page-card">Loading…</div>

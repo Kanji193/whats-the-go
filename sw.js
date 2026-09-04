@@ -42,10 +42,10 @@ const SHELL_URLS = [
   'adapters/main-roads-wa-adapter.js',
   'adapters/emergency-wa-adapter.js',
   'adapters/western-power-adapter.js',
-  'js/tone/whats-the-go/icons/icon-192.png',
-  'js/tone/whats-the-go/icons/icon-512.png',
-  'js/tone/whats-the-go/icons/icon-192-maskable.png',
-  'js/tone/whats-the-go/icons/icon-512-maskable.png',
+  'icons/icon-192.png',
+  'icons/icon-512.png',
+  'icons/icon-192-maskable.png',
+  'icons/icon-512-maskable.png',
 ];
 
 self.addEventListener('install', (event) => {

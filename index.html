@@ -6,6 +6,20 @@
 <title>What's The Go? — Perth situational awareness</title>
 <meta name="description" content="See what's going on around Perth right now — live traffic, emergency and power-outage incidents from Main Roads WA, DFES and Western Power on one map." />
 
+<!-- Theme: applied before first paint so there's no flash of the wrong
+     theme. Reads a saved choice, else falls back to the system's
+     prefers-color-scheme. js/ui/theme.js takes over from here once the
+     page has loaded (toggle button, persisting future changes). -->
+<script>
+(function () {
+  try {
+    var stored = localStorage.getItem('wtg-theme');
+    var theme = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+
 <!-- PWA -->
 <link rel="manifest" href="manifest.json" />
 <meta name="theme-color" content="#1B2430" />
@@ -45,6 +59,10 @@
     <div class="sheet-handle" id="sheetHandle" aria-hidden="true"><span class="sheet-handle__bar"></span></div>
 
     <header class="app-header">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
       <div class="app-brand">
         <span class="app-brand__mark" aria-hidden="true"></span>
         <h1 class="app-brand__name">What's The Go?</h1>

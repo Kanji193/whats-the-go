@@ -1,7 +1,13 @@
 import { incidentRepository } from './data/incident-repository.js';
 import { renderIncidentCard } from './ui/incident-card.js';
+import { initThemeToggle } from './ui/theme.js';
+import { currentTheme, setMapTheme } from './map/map-init.js';
 
 const contentEl = document.getElementById('content');
+
+initThemeToggle(document.getElementById('themeToggle'), (theme) => {
+  if (window.__wtgMiniMap) setMapTheme(window.__wtgMiniMap, theme);
+});
 
 async function main() {
   const params = new URLSearchParams(window.location.search);
@@ -46,7 +52,8 @@ async function main() {
     scrollWheelZoom: false,
     attributionControl: false,
   });
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+  setMapTheme(map, currentTheme());
+  window.__wtgMiniMap = map;
   L.circleMarker([incident.latitude, incident.longitude], {
     radius: 8,
     color: '#fff',
